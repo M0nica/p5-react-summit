@@ -10,8 +10,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.16.10",
     "@astrojs/check": "^0.9.4",
+    "@p5-wrapper/react": "^4.4.2",
+    "astro": "^4.16.10",
+    "p5": "^1.11.1",
     "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@types/p5": "^1.7.6"
   }
 }
