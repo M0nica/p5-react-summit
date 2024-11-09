@@ -7,9 +7,9 @@ import {
 } from '@p5-wrapper/react';
 
 const defaultColors = {
-  fromColor: '#58c4dc',
-  toColor: '#79f520',
-  bgColor: '#004c4c',
+  fromColor: '#75B8C7',
+  toColor: '#8B236A',
+  bgColor: '#281731',
 };
 
 type MySketchProps = SketchProps &
@@ -161,6 +161,21 @@ export default function App() {
   };
   return (
     <>
+      <div
+        style={{ display: 'flex', flexDirection: 'row-reverse', gap: '1em' }}
+        id='columns'
+      >
+        <div>
+          {(['bgColor', 'fromColor', 'toColor'] as const).map((color) => {
+            return (
+              <div
+                style={{ display: 'flex', flexDirection: 'column' }}
+                key={color}
+              >
+                <label htmlFor={color}>{labels[color]}</label>
+                <input
+                  type='color'
+                  value={colors[color]}
       {(['bgColor', 'fromColor', 'toColor'] as const).map((color) => {
         return (
           <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -178,52 +193,61 @@ export default function App() {
 
       <fieldset>
         <legend>🌈 Color Mode:</legend>
+                  name={color}
+                  id={color}
+                />
+              </div>
+            );
+          })}
+          <fieldset>
+            <legend>🌈 Color Mode:</legend>
 
-        <div>
-          <input
-            type='radio'
-            id='gradientColor'
-            name='gradient'
-            value='gradient'
-            checked={colorMode === 'gradient'}
-            onChange={handleColorModeChange}
-          />
-          <label htmlFor='gradientColor'>Gradient</label>
+            <div>
+              <input
+                type='radio'
+                id='gradientColor'
+                name='gradient'
+                value='gradient'
+                checked={colorMode === 'gradient'}
+                onChange={handleColorModeChange}
+              />
+              <label htmlFor='gradientColor'>Gradient</label>
+            </div>
+
+            <div>
+              <input
+                type='radio'
+                id='randomColor'
+                name='random'
+                value='random'
+                checked={colorMode === 'random'}
+                onChange={handleColorModeChange}
+              />
+              <label htmlFor='randomColor'>Random</label>
+            </div>
+          </fieldset>
+          <div>
+            <input
+              type='range'
+              id='sz'
+              name='size'
+              min='25'
+              max='75'
+              value={size}
+              step='1'
+              onChange={handleSliderChange}
+            />
+            <label htmlFor='sz'>Size</label>
+          </div>
         </div>
 
-        <div>
-          <input
-            type='radio'
-            id='randomColor'
-            name='random'
-            value='random'
-            checked={colorMode === 'random'}
-            onChange={handleColorModeChange}
-          />
-          <label htmlFor='randomColor'>Random</label>
-        </div>
-      </fieldset>
-
-      <div>
-        <input
-          type='range'
-          id='sz'
-          name='size'
-          min='25'
-          max='75'
-          value={size}
-          step='1'
-          onChange={handleSliderChange}
+        <ReactP5Wrapper
+          sketch={sketch}
+          colors={colors}
+          size={size}
+          colorMode={colorMode}
         />
-        <label htmlFor='sz'>Tile Size: {size}</label>
       </div>
-
-      <ReactP5Wrapper
-        sketch={sketch}
-        colors={colors}
-        size={size}
-        colorMode={colorMode}
-      />
     </>
   );
 }
