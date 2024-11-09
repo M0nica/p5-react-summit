@@ -87,6 +87,10 @@ function generateTile(
 }
 
 export const sketch: Sketch<MySketchProps> = (p5) => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   p5.updateWithProps = (props) => {
     inputValues = props;
 
