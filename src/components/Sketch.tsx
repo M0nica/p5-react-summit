@@ -1,9 +1,7 @@
 import { type P5CanvasInstance, type Sketch } from '@p5-wrapper/react';
 
-import { defaultInputValues } from './demo';
-
 import { type Pattern, type MySketchProps } from './types';
-let inputValues = defaultInputValues;
+import { defaultInputValues } from './demo';
 
 let originalSize = 35;
 const weight = 8;
@@ -87,9 +85,7 @@ function generateTile(
 }
 
 export const sketch: Sketch<MySketchProps> = (p5) => {
-  if (typeof window === 'undefined') {
-    return null;
-  }
+  let inputValues = defaultInputValues;
 
   p5.updateWithProps = (props) => {
     inputValues = props;
