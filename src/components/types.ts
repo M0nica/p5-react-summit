@@ -11,7 +11,7 @@ export type UserInputValues = {
   size: number;
   patternMode: Pattern;
   isSavingImage: boolean;
-  setIsSavingImage: React.Dispatch<React.SetStateAction<boolean>> | undefined;
+  setIsSavingImage: () => void;
   showGrid: boolean;
   artMode: 'rounded' | 'squared';
 };
