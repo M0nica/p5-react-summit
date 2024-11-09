@@ -176,29 +176,14 @@ export default function App() {
                 <input
                   type='color'
                   value={colors[color]}
-      {(['bgColor', 'fromColor', 'toColor'] as const).map((color) => {
-        return (
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <input
-              type='color'
-              value={colors[color]}
-              onChange={handleColorChange}
-              name={color}
-              id={color}
-            />
-            <label htmlFor={color}>{labels[color]}</label>
-          </div>
-        );
-      })}
-
-      <fieldset>
-        <legend>🌈 Color Mode:</legend>
+                  onChange={handleColorChange}
                   name={color}
                   id={color}
                 />
               </div>
             );
           })}
+
           <fieldset>
             <legend>🌈 Color Mode:</legend>
 
