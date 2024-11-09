@@ -1,28 +1,19 @@
 import * as React from 'react';
+
 import {
   ReactP5Wrapper,
   type P5CanvasInstance,
   type Sketch,
-  type SketchProps,
 } from '@p5-wrapper/react';
+
 import Styles from './demo.module.css';
 
-type Pattern = 'gradient' | 'random';
-
-type UserInputValues = {
-  colors: {
-    fromColor: string;
-    toColor: string;
-    bgColor: string;
-  };
-  size: number;
-  patternMode: Pattern;
-  isSavingImage: boolean;
-  setIsSavingImage: React.Dispatch<React.SetStateAction<boolean>> | undefined;
-  showGrid: boolean;
-  artMode: 'rounded' | 'squared';
-};
-type MySketchProps = SketchProps & P5CanvasInstance & UserInputValues;
+import {
+  type MySketchProps,
+  type UserInputValues,
+  type Pattern,
+  type Action,
+} from './types';
 
 const defaultInputValues = {
   colors: {
@@ -159,17 +150,6 @@ const sketch: Sketch<MySketchProps> = (p5) => {
     );
   };
 };
-
-interface Action {
-  type:
-    | 'colors'
-    | 'size'
-    | 'patternMode'
-    | 'showGrid'
-    | 'artMode'
-    | 'isSavingImage';
-  value: any;
-}
 
 function reducer(state: UserInputValues, action: Action): UserInputValues {
   const { type, value } = action;
