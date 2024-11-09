@@ -6,7 +6,7 @@ import Test from "../components/test.tsx";
 
 <Layout title="Welcome to Astro.">
 	<main>
-		<svg
+		<!-- <svg
 			class="astro-a"
 			width="495"
 			height="623"
@@ -33,35 +33,29 @@ import Test from "../components/test.tsx";
 					<stop offset="1" stop-opacity="0.2"></stop>
 				</linearGradient>
 			</defs>
-		</svg>
+		</svg> -->
+		<h1><span class="text-gradient">🧩 Truchet Tile </span> Generator</h1>
 		<Test client:only="react"/>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
+		
+	
 		<ul role="list" class="link-card-grid">
 			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
+				href="https://github.com/P5-wrapper/react"
+				title="P5-wrapper/react Documentation"
+				body="Learn how P5-wrapper/react works and how to use it."
 			/>
 			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
+				href="https://p5js.org/reference/"
+				title="P5.js Documentation"
+				body="Explore the P5.js reference to learn more about fundamentals  and more advanced features."
 			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
+			
 		</ul>
+
+			<!-- <p class="instructions">
+			To get started, open the directory <code>src/pages</code> in your project.<br />
+			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+		</p> -->
 	</main>
 </Layout>
 

@@ -11,6 +11,7 @@ const defaultColors = {
   toColor: '#79f520',
   bgColor: '#004c4c',
 };
+
 type MySketchProps = SketchProps &
   P5CanvasInstance & {
     colors: {
@@ -18,9 +19,13 @@ type MySketchProps = SketchProps &
       toColor: string;
       bgColor: string;
     };
+    size: number;
+    colorMode: 'gradient' | 'random';
   };
 
+let colorMode = 'gradient';
 let colors = defaultColors;
+let size = 35;
 let originalSize = 35;
 const weight = 8;
 let timesInput = 1;
@@ -32,20 +37,18 @@ function drawGrid(
   height: number,
   size: number,
   originalSize: number,
-  colors: { fromColor: string; toColor: string; bgColor: string }
+  colors: { fromColor: string; toColor: string; bgColor: string },
+  colorMode: 'gradient' | 'random' = 'gradient'
 ) {
   const { fromColor, toColor } = colors;
 
-  console.log({ colors });
   const from = p5.color(fromColor);
-
   const to = p5.color(toColor);
 
-  console.log({ from, to });
   const tile = generateTile(p5);
 
-  for (var i = 1; i <= width; i += size) {
-    for (var j = 1; j <= height; j += size) {
+  for (var i = 1; i <= width + size; i += size) {
+    for (var j = 1; j <= height + size; j += size) {
       p5.push();
       p5.translate(i, j);
       var angle = (p5.TWO_PI * p5.int(p5.random(1, 5))) / 4;
@@ -53,7 +56,11 @@ function drawGrid(
       p5.tint(
         p5.random() <= p5.map(timesInput, 1, 4, 0, 0.65)
           ? from
-          : p5.lerpColor(from, to, p5.random(1))
+          : p5.lerpColor(
+              from,
+              to,
+              colorMode === 'gradient' ? j / height : p5.random(1)
+            )
       );
 
       p5.scale(size / originalSize);
@@ -84,11 +91,15 @@ function generateTile(p5: P5CanvasInstance<MySketchProps>) {
 
 const sketch: Sketch<MySketchProps> = (p5) => {
   p5.updateWithProps = (props) => {
-    if (props.colors) {
-      colors = props.colors;
+    colors = props?.colors || colors;
+    size = props?.size || size;
+    colorMode = props?.colorMode || colorMode;
+
+    if (props.size || props.colors || props.colorMode) {
       p5.redraw();
     }
   };
+
   p5.setup = () => {
     p5.createCanvas(600, 400);
     p5.imageMode(p5.CENTER);
@@ -103,15 +114,18 @@ const sketch: Sketch<MySketchProps> = (p5) => {
       p5 as P5CanvasInstance,
       p5.width,
       p5.height,
+      size,
       originalSize,
-      originalSize,
-      colors
+      colors,
+      colorMode
     );
   };
 };
 
 export default function App() {
   const [colors, setColors] = React.useState(defaultColors);
+  const [size, setSize] = React.useState(35);
+  const [colorMode, setColorMode] = React.useState('gradient');
 
   if (typeof window === 'undefined') {
     return null;
@@ -124,6 +138,27 @@ export default function App() {
     setColors({ ...colors, [e.target.name]: e.target.value });
   };
 
+  const handleSliderChange = (e: {
+    target: { name: string; value: React.SetStateAction<string> };
+  }) => {
+    setSize(parseInt(e.target.value));
+  };
+
+  const handleColorModeChange = (e: {
+    target: { name: string; value: React.SetStateAction<string> };
+  }) => {
+    // st color mode to target name if the event is selected
+
+    if (e.target.checked) {
+      setColorMode(e.target.value);
+    }
+  };
+
+  const labels = {
+    bgColor: 'Background Color',
+    fromColor: '1st Color',
+    toColor: '2nd Color',
+  };
   return (
     <>
       {(['bgColor', 'fromColor', 'toColor'] as const).map((color) => {
@@ -136,12 +171,59 @@ export default function App() {
               name={color}
               id={color}
             />
-            <label htmlFor={color}>{color}</label>
+            <label htmlFor={color}>{labels[color]}</label>
           </div>
         );
       })}
 
-      <ReactP5Wrapper sketch={sketch} colors={colors} />
+      <fieldset>
+        <legend>🌈 Color Mode:</legend>
+
+        <div>
+          <input
+            type='radio'
+            id='gradientColor'
+            name='gradient'
+            value='gradient'
+            checked={colorMode === 'gradient'}
+            onChange={handleColorModeChange}
+          />
+          <label htmlFor='gradientColor'>Gradient</label>
+        </div>
+
+        <div>
+          <input
+            type='radio'
+            id='randomColor'
+            name='random'
+            value='random'
+            checked={colorMode === 'random'}
+            onChange={handleColorModeChange}
+          />
+          <label htmlFor='randomColor'>Random</label>
+        </div>
+      </fieldset>
+
+      <div>
+        <input
+          type='range'
+          id='sz'
+          name='size'
+          min='25'
+          max='75'
+          value={size}
+          step='1'
+          onChange={handleSliderChange}
+        />
+        <label htmlFor='sz'>Tile Size: {size}</label>
+      </div>
+
+      <ReactP5Wrapper
+        sketch={sketch}
+        colors={colors}
+        size={size}
+        colorMode={colorMode}
+      />
     </>
   );
 }
