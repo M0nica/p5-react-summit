@@ -9,20 +9,20 @@ import Styles from './demo.module.css';
 
 type Pattern = 'gradient' | 'random';
 
-type MySketchProps = SketchProps &
-  P5CanvasInstance & {
-    colors: {
-      fromColor: string;
-      toColor: string;
-      bgColor: string;
-    };
-    size: number;
-    patternMode: Pattern;
-    isSavingImage: boolean;
-    setIsSavingImage: React.Dispatch<React.SetStateAction<boolean>> | undefined;
-    showGrid: boolean;
-    artMode: 'rounded' | 'squared';
+type UserInputValues = {
+  colors: {
+    fromColor: string;
+    toColor: string;
+    bgColor: string;
   };
+  size: number;
+  patternMode: Pattern;
+  isSavingImage: boolean;
+  setIsSavingImage: React.Dispatch<React.SetStateAction<boolean>> | undefined;
+  showGrid: boolean;
+  artMode: 'rounded' | 'squared';
+};
+type MySketchProps = SketchProps & P5CanvasInstance & UserInputValues;
 
 const defaultInputValues = {
   colors: {
@@ -43,7 +43,6 @@ let inputValues = defaultInputValues;
 let originalSize = 35;
 const weight = 8;
 let timesInput = 1;
-//let  = 'Computer Art';
 
 function drawGrid(
   p5: P5CanvasInstance<MySketchProps>,
@@ -143,8 +142,8 @@ const sketch: Sketch<MySketchProps> = (p5) => {
 
   p5.windowResized = () => {
     p5.resizeCanvas(computeWidth(p5.windowWidth), p5.windowHeight * 0.75);
-    //  p5.redraw();
   };
+
   p5.draw = () => {
     const { colors } = inputValues;
     const { bgColor } = colors;
@@ -161,18 +160,27 @@ const sketch: Sketch<MySketchProps> = (p5) => {
   };
 };
 
-export default function App() {
-  const [colors, setColors] = React.useState(defaultInputValues.colors);
-  const [size, setSize] = React.useState(defaultInputValues.size);
-  const [patternMode, setColorMode] = React.useState<Pattern>(
-    defaultInputValues.patternMode
-  );
-  const [isSavingImage, setIsSavingImage] = React.useState(
-    defaultInputValues.isSavingImage
-  );
-  const [showGrid, setShowGrid] = React.useState(defaultInputValues.showGrid);
+interface Action {
+  type:
+    | 'colors'
+    | 'size'
+    | 'patternMode'
+    | 'showGrid'
+    | 'artMode'
+    | 'isSavingImage';
+  value: any;
+}
 
-  const [artMode, setArtMode] = React.useState(defaultInputValues.artMode);
+function reducer(state: UserInputValues, action: Action): UserInputValues {
+  const { type, value } = action;
+  return { ...state, [type]: value };
+}
+
+export default function App() {
+  const [inputState, dispatch] = React.useReducer(reducer, defaultInputValues);
+
+  const { colors, size, patternMode, showGrid, artMode, isSavingImage } =
+    inputState;
 
   if (typeof window === 'undefined') {
     return null;
@@ -181,26 +189,43 @@ export default function App() {
   const handleColorChange = (e: {
     target: { name: string; value: React.SetStateAction<string> };
   }) => {
-    setColors({ ...colors, [e.target.name]: e.target.value });
+    dispatch({
+      type: 'colors',
+      value: { ...colors, [e.target.name]: e.target.value },
+    });
   };
 
   const handleSliderChange = (e: {
     target: { name: string; value: string };
   }) => {
-    setSize(parseInt(e.target.value));
+    dispatch({ type: 'size', value: parseInt(e.target.value) });
   };
 
   const handleArtModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setArtMode(e.target.value as 'rounded' | 'squared');
-    }
+    dispatch({
+      type: 'artMode',
+      value: e.target.value as 'rounded' | 'squared',
+    });
   };
   const handleColorModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setColorMode(e.target.value as Pattern);
+    dispatch({
+      type: 'patternMode',
+      value: e.target.value as Pattern,
+    });
   };
 
-  const onClickSaveImage = () => {
-    setIsSavingImage(true);
+  const handleShowGrid = () => {
+    dispatch({
+      type: 'showGrid',
+      value: !showGrid,
+    });
+  };
+
+  const setIsSavingImage = (val?: boolean) => {
+    dispatch({
+      type: 'isSavingImage',
+      value: val ? val : !isSavingImage,
+    });
   };
 
   const labels = {
@@ -208,6 +233,7 @@ export default function App() {
     fromColor: 'Primary',
     toColor: 'Secondary',
   };
+
   return (
     <>
       <div className={Styles.containerCss}>
@@ -301,11 +327,14 @@ export default function App() {
               id='grid'
               name='grid'
               checked={showGrid}
-              onChange={() => setShowGrid(!showGrid)}
+              onChange={handleShowGrid}
             />
             <label htmlFor='grid'>Show Grid</label>
           </div>
-          <button className={Styles.buttonCss} onClick={onClickSaveImage}>
+          <button
+            className={Styles.buttonCss}
+            onClick={() => setIsSavingImage()}
+          >
             Save Image 🖼️
           </button>
         </div>
@@ -313,13 +342,8 @@ export default function App() {
         <div className={Styles.canvasCss}>
           <ReactP5Wrapper
             sketch={sketch}
-            colors={colors}
-            size={size}
-            patternMode={patternMode}
-            isSavingImage={isSavingImage}
+            {...inputState}
             setIsSavingImage={setIsSavingImage}
-            showGrid={showGrid}
-            artMode={artMode}
           />
         </div>
       </div>
