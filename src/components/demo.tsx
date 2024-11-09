@@ -12,6 +12,7 @@ const defaultColors = {
   bgColor: '#281731',
 };
 
+type Pattern = 'gradient' | 'random';
 type MySketchProps = SketchProps &
   P5CanvasInstance & {
     colors: {
@@ -20,10 +21,10 @@ type MySketchProps = SketchProps &
       bgColor: string;
     };
     size: number;
-    colorMode: 'gradient' | 'random';
+    patternMode: Pattern;
   };
 
-let colorMode = 'gradient';
+let patternMode: Pattern = 'gradient';
 let colors = defaultColors;
 let size = 35;
 let originalSize = 35;
@@ -38,7 +39,7 @@ function drawGrid(
   size: number,
   originalSize: number,
   colors: { fromColor: string; toColor: string; bgColor: string },
-  colorMode: 'gradient' | 'random' = 'gradient'
+  patternMode: Pattern
 ) {
   const { fromColor, toColor } = colors;
 
@@ -59,7 +60,7 @@ function drawGrid(
           : p5.lerpColor(
               from,
               to,
-              colorMode === 'gradient' ? j / height : p5.random(1)
+              patternMode === 'gradient' ? j / height : p5.random(1)
             )
       );
 
@@ -93,9 +94,9 @@ const sketch: Sketch<MySketchProps> = (p5) => {
   p5.updateWithProps = (props) => {
     colors = props?.colors || colors;
     size = props?.size || size;
-    colorMode = props?.colorMode || colorMode;
+    patternMode = props?.patternMode || patternMode;
 
-    if (props.size || props.colors || props.colorMode) {
+    if (props.size || props.colors || props.patternMode) {
       p5.redraw();
     }
   };
@@ -117,7 +118,7 @@ const sketch: Sketch<MySketchProps> = (p5) => {
       size,
       originalSize,
       colors,
-      colorMode
+      patternMode
     );
   };
 };
@@ -125,7 +126,7 @@ const sketch: Sketch<MySketchProps> = (p5) => {
 export default function App() {
   const [colors, setColors] = React.useState(defaultColors);
   const [size, setSize] = React.useState(35);
-  const [colorMode, setColorMode] = React.useState('gradient');
+  const [patternMode, setColorMode] = React.useState<Pattern>('gradient');
 
   if (typeof window === 'undefined') {
     return null;
@@ -134,23 +135,18 @@ export default function App() {
   const handleColorChange = (e: {
     target: { name: string; value: React.SetStateAction<string> };
   }) => {
-    console.log({ [e.target.name]: e.target.value });
     setColors({ ...colors, [e.target.name]: e.target.value });
   };
 
   const handleSliderChange = (e: {
-    target: { name: string; value: React.SetStateAction<string> };
+    target: { name: string; value: string };
   }) => {
     setSize(parseInt(e.target.value));
   };
 
-  const handleColorModeChange = (e: {
-    target: { name: string; value: React.SetStateAction<string> };
-  }) => {
-    // st color mode to target name if the event is selected
-
+  const handleColorModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      setColorMode(e.target.value);
+      setColorMode(e.target.value as Pattern);
     }
   };
 
@@ -193,7 +189,7 @@ export default function App() {
                 id='gradientColor'
                 name='gradient'
                 value='gradient'
-                checked={colorMode === 'gradient'}
+                checked={patternMode === 'gradient'}
                 onChange={handleColorModeChange}
               />
               <label htmlFor='gradientColor'>Gradient</label>
@@ -205,7 +201,7 @@ export default function App() {
                 id='randomColor'
                 name='random'
                 value='random'
-                checked={colorMode === 'random'}
+                checked={patternMode === 'random'}
                 onChange={handleColorModeChange}
               />
               <label htmlFor='randomColor'>Random</label>
@@ -230,7 +226,7 @@ export default function App() {
           sketch={sketch}
           colors={colors}
           size={size}
-          colorMode={colorMode}
+          patternMode={patternMode}
         />
       </div>
     </>
