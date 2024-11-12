@@ -1,5 +1,6 @@
 import Styles from './demo.module.css';
 import { type UserInputValues, type Pattern, type Action } from './types';
+import { generateColors } from './demo';
 
 export default function InputFields({
   inputValues,
@@ -16,6 +17,13 @@ export default function InputFields({
     dispatch({
       type: 'colors',
       value: { ...colors, [e.target.name]: e.target.value },
+    });
+  };
+
+  const setRandomColors = () => {
+    dispatch({
+      type: 'colors',
+      value: generateColors(),
     });
   };
 
@@ -71,8 +79,15 @@ export default function InputFields({
           );
         })}
 
+        <button className={Styles.buttonCss} onClick={() => setRandomColors()}>
+          Randomize{' '}
+          <span role='img' aria-label='color palette'>
+            🎨
+          </span>
+        </button>
+
         <fieldset>
-          <legend>🌈 Color Mode</legend>
+          <legend>🌈 Color Distribution</legend>
 
           <div>
             <input
@@ -150,7 +165,10 @@ export default function InputFields({
           <label htmlFor='grid'>Show Grid</label>
         </div>
         <button className={Styles.buttonCss} onClick={() => setIsSavingImage()}>
-          Save Image 🖼️
+          Save{' '}
+          <span role='img' aria-label='canvas'>
+            🖼️
+          </span>
         </button>
       </div>
     </>

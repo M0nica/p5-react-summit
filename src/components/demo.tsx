@@ -6,12 +6,25 @@ import Styles from './demo.module.css';
 
 import { type MySketchProps, type UserInputValues, type Action } from './types';
 
+function generateRandomHexColor() {
+  return `#${Math.floor(Math.random() * 16777215)
+    .toString(16)
+    .padStart(6, '0')}`;
+}
+
+const lightBg = '#f8f8f8';
+const darkBg = '#281731';
+
+export function generateColors() {
+  return {
+    fromColor: generateRandomHexColor(),
+    toColor: generateRandomHexColor(),
+    bgColor: Math.random() > 0.5 ? lightBg : darkBg,
+  };
+}
+
 export const defaultInputValues = {
-  colors: {
-    fromColor: '#75B8C7',
-    toColor: '#8B236A',
-    bgColor: '#281731',
-  },
+  colors: generateColors(),
   patternMode: 'gradient',
   size: 35,
   isSavingImage: false,
