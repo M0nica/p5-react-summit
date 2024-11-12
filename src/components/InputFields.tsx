@@ -46,6 +46,15 @@ export default function InputFields({
     });
   };
 
+  const handleNameChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    dispatch({
+      type: 'name',
+      value: e.target.value,
+    });
+  };
+
   const handleShowGrid = () => {
     dispatch({
       type: 'showGrid',
@@ -53,7 +62,15 @@ export default function InputFields({
     });
   };
 
-  const { colors, patternMode, showGrid, size, artMode } = inputValues;
+  const handleShowBanner = () => {
+    dispatch({
+      type: 'showBanner',
+      value: !showBanner,
+    });
+  };
+
+  const { colors, patternMode, showGrid, size, artMode, showBanner } =
+    inputValues;
 
   const labels = {
     bgColor: 'Background',
@@ -64,6 +81,16 @@ export default function InputFields({
   return (
     <>
       <div className={Styles.controlPanelCss}>
+        <div className={Styles.columnCss}>
+          <label htmlFor='name'>{showBanner ? 'Name' : 'Seed'}</label>{' '}
+          <input
+            type='text'
+            name='name'
+            onChange={handleNameChange}
+            placeholder={showBanner ? 'Enter  your name' : 'Enter a seed value'}
+            className={Styles.inputCss}
+          />
+        </div>
         {(['bgColor', 'fromColor', 'toColor'] as const).map((color) => {
           return (
             <div className={Styles.columnCss} key={color}>
@@ -78,14 +105,12 @@ export default function InputFields({
             </div>
           );
         })}
-
         <button className={Styles.buttonCss} onClick={() => setRandomColors()}>
           Randomize{' '}
           <span role='img' aria-label='color palette'>
             🎨
           </span>
         </button>
-
         <fieldset>
           <legend>🌈 Color Distribution</legend>
 
@@ -153,7 +178,6 @@ export default function InputFields({
           />
           <label htmlFor='sz'>Size</label>
         </div>
-
         <div>
           <input
             type='checkbox'
@@ -163,6 +187,16 @@ export default function InputFields({
             onChange={handleShowGrid}
           />
           <label htmlFor='grid'>Show Grid</label>
+        </div>
+        <div>
+          <input
+            type='checkbox'
+            id='grid'
+            name='grid'
+            checked={showBanner}
+            onChange={handleShowBanner}
+          />
+          <label htmlFor='grid'>Show Banner</label>
         </div>
         <button className={Styles.buttonCss} onClick={() => setIsSavingImage()}>
           Save{' '}

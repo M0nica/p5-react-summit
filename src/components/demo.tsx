@@ -24,11 +24,13 @@ export function generateColors() {
 }
 
 export const defaultInputValues = {
+  name: '',
   colors: generateColors(),
   patternMode: 'gradient',
   size: 35,
   isSavingImage: false,
   showGrid: false,
+  showBanner: true,
   setIsSavingImage: () => {},
   artMode: 'rounded',
 } as MySketchProps;
@@ -42,6 +44,8 @@ export default function App() {
   const [inputState, dispatch] = React.useReducer(reducer, defaultInputValues);
 
   const { isSavingImage } = inputState;
+
+  const deferredInputState = React.useDeferredValue(inputState);
 
   if (typeof window === 'undefined') {
     return null;
@@ -66,7 +70,7 @@ export default function App() {
         <div className={Styles.canvasCss}>
           <ReactP5Wrapper
             sketch={sketch}
-            {...inputState}
+            {...deferredInputState}
             setIsSavingImage={setIsSavingImage}
           />
         </div>

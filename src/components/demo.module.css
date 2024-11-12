@@ -1,3 +1,11 @@
+:root {
+  accent-color: #9854ed;
+}
+
+label {
+  font-family: 'Inter Variable', sans-serif;
+  font-weight: 300;
+}
 .containerCss {
   display: flex;
   flex-direction: row-reverse;
@@ -48,4 +56,8 @@
   & > div:first-child > canvas:first-child {
     border-radius: 10px;
   }
+}
+
+.inputCss {
+  font-size: 1.25em;
 }

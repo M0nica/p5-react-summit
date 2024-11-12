@@ -4,11 +4,22 @@ interface Props {
 }
 
 const { title } = Astro.props;
+import '@fontsource-variable/inter';
+import '@fontsource-variable/pixelify-sans';
+
+
+import pixelifySansWoff2 from '@fontsource-variable/pixelify-sans/files/pixelify-sans-latin-wght-normal.woff2?url';
+
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
+		 <link rel="preload" as="font" type="font/woff2" href={pixelifySansWoff2} crossorigin="anonymous" />
+      </head>
+    </html>
+  );
+
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
