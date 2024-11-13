@@ -1,5 +1,5 @@
 import { type P5CanvasInstance, type Sketch } from '@p5-wrapper/react';
-
+import { lightBg } from './demo';
 import { type Pattern, type MySketchProps } from './types';
 import { defaultInputValues } from './demo';
 
@@ -21,7 +21,8 @@ function drawRectangle(
   colors: { fromColor: string; toColor: string; bgColor: string },
   size: number
 ) {
-  p5.textSize(size * 0.75);
+  const { fromColor, toColor, bgColor } = colors;
+  p5.textSize(size * 0.5);
 
   // draw a rectangle at top of canvas
   p5.noStroke();
@@ -29,7 +30,7 @@ function drawRectangle(
   p5.rect(0, 0, width, size);
 
   // write the name in the rectangle
-  p5.fill(colors.bgColor);
+  p5.fill(bgColor);
   p5.textAlign(p5.CENTER, p5.CENTER);
   p5.text(
     `${
@@ -39,14 +40,15 @@ function drawRectangle(
     size / 2
   );
 
-  //draw  three circles to represent the three coors in palette
-  p5.stroke('white');
-  p5.fill(colors.fromColor);
-  p5.circle(width - size, size / 2, size * 0.5);
-  p5.fill(colors.toColor);
-  p5.circle(width - 2 * size, size / 2, size * 0.5);
-  p5.fill(colors.bgColor);
-  p5.circle(width - 3 * size, size / 2, size * 0.5);
+  //draw  three circles to represent the three colors in palette
+  if (width > 600) {
+    p5.stroke(lightBg);
+
+    [fromColor, toColor, bgColor].forEach((color, index) => {
+      p5.fill(color);
+      p5.circle(width - (index + 1) * size, size / 2, size * 0.5);
+    });
+  }
 }
 function drawGrid(
   p5: P5CanvasInstance<MySketchProps>,
@@ -102,7 +104,7 @@ function generateTile(
 
   if (showGrid) {
     pg.noFill();
-    pg.stroke('white');
+    pg.stroke(lightBg);
     pg.strokeWeight(weight * 0.25);
     pg.strokeCap(p5.ROUND);
     pg.square(0, 0, pg.height);

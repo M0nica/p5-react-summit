@@ -12,7 +12,7 @@ function generateRandomHexColor() {
     .padStart(6, '0')}`;
 }
 
-const lightBg = '#f8f8f8';
+export const lightBg = '#f8f8f8';
 const darkBg = '#281731';
 
 export function generateColors() {
