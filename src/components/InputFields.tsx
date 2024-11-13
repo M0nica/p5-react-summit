@@ -104,7 +104,7 @@ export default function InputFields({
   return (
     <>
       <div className={Styles.controlPanelCss}>
-        <div className={Styles.columnCss}>
+        <div className={Styles.rowCss}>
           <label htmlFor='name'>{showBanner ? 'Name' : 'Seed'}</label>{' '}
           <input
             type='text'
@@ -115,9 +115,10 @@ export default function InputFields({
             maxLength={14}
           />
         </div>
+        <h2 className={Styles.sectionCss}>Colors</h2>
         {(['bgColor', 'fromColor', 'toColor'] as const).map((color) => {
           return (
-            <div className={Styles.columnCss} key={color}>
+            <div className={Styles.rowCss} key={color}>
               <label htmlFor={color}>{labels[color]}</label>
               <input
                 type='color'
@@ -125,16 +126,20 @@ export default function InputFields({
                 onChange={handleColorChange}
                 name={color}
                 id={color}
+                className={Styles.inputColorCss}
               />
             </div>
           );
         })}
+
         <button className={Styles.buttonCss} onClick={() => setRandomColors()}>
           Randomize{' '}
           <span role='img' aria-label='color palette'>
             🎨
           </span>
         </button>
+
+        <h2 className={Styles.sectionCss}>Pattern</h2>
         <fieldset>
           <legend>🌈 Color Distribution</legend>
 
@@ -189,6 +194,9 @@ export default function InputFields({
             <label htmlFor='squared'>Square</label>
           </div>
         </fieldset>
+
+        <h2 className={Styles.sectionCss}>Additional Settings</h2>
+
         <div>
           <input
             type='range'

@@ -21,7 +21,7 @@ function drawRectangle(
   size: number
 ) {
   const { fromColor, toColor, bgColor } = colors;
-  p5.textSize(width > 750 ? size * 0.5 : size * 0.45);
+  p5.textSize(width > 750 ? originalSize * 0.5 : originalSize * 0.45);
 
   // draw a rectangle at top of canvas
   p5.noStroke();
@@ -45,7 +45,11 @@ function drawRectangle(
 
     [fromColor, toColor, bgColor].forEach((color, index) => {
       p5.fill(color);
-      p5.circle(width - (index + 1) * size, size / 2, size * 0.5);
+      p5.circle(
+        width - (index + 1) * originalSize,
+        originalSize / 2,
+        originalSize * 0.5
+      );
     });
   }
 }
@@ -163,9 +167,9 @@ export const sketch: Sketch<MySketchProps> = (p5) => {
 
     p5.background(bgColor);
 
-    Boolean(inputValues.name)
-      ? p5.randomSeed(convertStringToSeedNumber(inputValues.name))
-      : p5.noLoop();
+    p5.randomSeed(convertStringToSeedNumber(inputValues.name));
+
+    p5.noLoop();
 
     drawTiles(
       p5 as P5CanvasInstance,

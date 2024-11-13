@@ -2,6 +2,12 @@
   accent-color: #9854ed;
 }
 
+.sectionCss {
+  font-size: 1.1em;
+  text-decoration: #9854ed wavy underline;
+  -webkit-text-decoration: #9854ed wavy underline;
+}
+
 label {
   font-family: 'Inter Variable', sans-serif;
   font-weight: 300;
@@ -20,10 +26,12 @@ label {
   min-width: 250px;
 }
 
-.columnCss {
+.rowCss {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: space-between;
 }
 
 .buttonCss {
@@ -37,10 +45,11 @@ label {
   font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;
-  border-radius: 50px;
+  border-radius: 8px;
   padding: 1em;
   margin-top: 1em;
   margin-bottom: 1em;
+  width: 100%;
 }
 
 .buttonCss:hover,
@@ -59,5 +68,11 @@ label {
 }
 
 .inputCss {
-  font-size: 1.25em;
+  font-size: 1em;
+  max-width: 170px;
+}
+
+.inputColorCss {
+  width: 100px;
+  margin-top: 1em;
 }
