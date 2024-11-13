@@ -1,5 +1,10 @@
 import Styles from './demo.module.css';
-import { type UserInputValues, type Pattern, type Action } from './types';
+import {
+  type UserInputValues,
+  type Pattern,
+  type Action,
+  type Shape,
+} from './types';
 import { generateColors } from './utils';
 
 export default function InputFields({
@@ -47,7 +52,7 @@ export default function InputFields({
   const handleArtModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: 'artMode',
-      value: e.target.value as 'rounded' | 'squared',
+      value: e.target.value as Shape,
     });
   };
   const handleColorModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,11 +67,11 @@ export default function InputFields({
   }) => {
     dispatch({
       type: 'name',
-      value: e.target.value,
+      value: e.target.value.toString(),
     });
   };
 
-  const handleshowGridLines = () => {
+  const handleShowGridLines = () => {
     dispatch({
       type: 'showGridLines',
       value: !showGridLines,
@@ -202,7 +207,7 @@ export default function InputFields({
             id='grid'
             name='grid'
             checked={showGridLines}
-            onChange={handleshowGridLines}
+            onChange={handleShowGridLines}
           />
           <label htmlFor='grid'>Show Grid Lines</label>
         </div>

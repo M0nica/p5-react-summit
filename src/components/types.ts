@@ -2,19 +2,19 @@ import { type P5CanvasInstance, type SketchProps } from '@p5-wrapper/react';
 
 export type Pattern = 'gradient' | 'random';
 
+export type Shape = 'rounded' | 'squared';
+
+export type Colors = { fromColor: string; toColor: string; bgColor: string };
+
 export type UserInputValues = {
   name: string;
-  colors: {
-    fromColor: string;
-    toColor: string;
-    bgColor: string;
-  };
+  colors: Colors;
   size: number;
   patternMode: Pattern;
   isSavingImage: boolean;
   showGridLines: boolean;
   showBanner: boolean;
-  artMode: 'rounded' | 'squared';
+  artMode: Shape;
 };
 
 export type MySketchProps = SketchProps & P5CanvasInstance & UserInputValues;
@@ -29,5 +29,5 @@ export interface Action {
     | 'showBanner'
     | 'artMode'
     | 'isSavingImage';
-  value: any;
+  value: boolean | string | number | Colors | Pattern | Shape;
 }

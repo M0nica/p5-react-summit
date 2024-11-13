@@ -1,6 +1,11 @@
 import { type P5CanvasInstance, type Sketch } from '@p5-wrapper/react';
 import { lightBg } from './utils';
-import { type Pattern, type MySketchProps } from './types';
+import {
+  type Pattern,
+  type MySketchProps,
+  type Shape,
+  type Colors,
+} from './types';
 import { defaultInputValues } from './demo';
 import { convertStringToSeedNumber, computeCanvasDimensions } from './utils';
 
@@ -12,7 +17,7 @@ function drawRectangle(
   p5: P5CanvasInstance<MySketchProps>,
   width: number,
   name: string,
-  colors: { fromColor: string; toColor: string; bgColor: string },
+  colors: Colors,
   size: number
 ) {
   const { fromColor, toColor, bgColor } = colors;
@@ -51,10 +56,10 @@ function drawTiles(
   originalSize: number,
   inputValues: {
     size: number;
-    colors: { fromColor: string; toColor: string; bgColor: string };
+    colors: Colors;
     patternMode: Pattern;
     showGridLines: boolean;
-    artMode: 'rounded' | 'squared';
+    artMode: Shape;
   }
 ) {
   const { colors, patternMode, showGridLines, size, artMode } = inputValues;
@@ -90,7 +95,7 @@ function drawTiles(
 function generateTile(
   p5: P5CanvasInstance<MySketchProps>,
   showGridLines: boolean,
-  artMode: 'rounded' | 'squared'
+  artMode: Shape
 ) {
   let pg;
 
