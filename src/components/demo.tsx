@@ -13,7 +13,7 @@ export const defaultInputValues = {
   patternMode: 'gradient',
   size: 35,
   isSavingImage: false,
-  showGrid: false,
+  showGridLines: false,
   showBanner: true,
   artMode: 'rounded',
 } as MySketchProps;

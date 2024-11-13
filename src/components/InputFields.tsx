@@ -66,10 +66,10 @@ export default function InputFields({
     });
   };
 
-  const handleShowGrid = () => {
+  const handleshowGridLines = () => {
     dispatch({
-      type: 'showGrid',
-      value: !showGrid,
+      type: 'showGridLines',
+      value: !showGridLines,
     });
   };
 
@@ -83,7 +83,7 @@ export default function InputFields({
   const {
     colors,
     patternMode,
-    showGrid,
+    showGridLines,
     size,
     artMode,
     showBanner,
@@ -201,10 +201,10 @@ export default function InputFields({
             type='checkbox'
             id='grid'
             name='grid'
-            checked={showGrid}
-            onChange={handleShowGrid}
+            checked={showGridLines}
+            onChange={handleshowGridLines}
           />
-          <label htmlFor='grid'>Show Grid</label>
+          <label htmlFor='grid'>Show Grid Lines</label>
         </div>
         <div>
           <input

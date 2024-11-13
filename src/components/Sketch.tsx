@@ -44,7 +44,7 @@ function drawRectangle(
     });
   }
 }
-function drawGrid(
+function drawTiles(
   p5: P5CanvasInstance<MySketchProps>,
   width: number,
   height: number,
@@ -53,17 +53,17 @@ function drawGrid(
     size: number;
     colors: { fromColor: string; toColor: string; bgColor: string };
     patternMode: Pattern;
-    showGrid: boolean;
+    showGridLines: boolean;
     artMode: 'rounded' | 'squared';
   }
 ) {
-  const { colors, patternMode, showGrid, size, artMode } = inputValues;
+  const { colors, patternMode, showGridLines, size, artMode } = inputValues;
   const { fromColor, toColor } = colors;
 
   const from = p5.color(fromColor);
   const to = p5.color(toColor);
 
-  const tile = generateTile(p5, showGrid, artMode);
+  const tile = generateTile(p5, showGridLines, artMode);
 
   for (var i = 1; i <= width + size; i += size) {
     for (var j = 1; j <= height + size; j += size) {
@@ -89,14 +89,14 @@ function drawGrid(
 
 function generateTile(
   p5: P5CanvasInstance<MySketchProps>,
-  showGrid: boolean,
+  showGridLines: boolean,
   artMode: 'rounded' | 'squared'
 ) {
   let pg;
 
   pg = p5.createGraphics(originalSize + 2, originalSize + 2);
 
-  if (showGrid) {
+  if (showGridLines) {
     pg.noFill();
     pg.stroke(lightBg);
     pg.strokeWeight(weight * 0.25);
@@ -162,7 +162,7 @@ export const sketch: Sketch<MySketchProps> = (p5) => {
       ? p5.randomSeed(convertStringToSeedNumber(inputValues.name))
       : p5.noLoop();
 
-    drawGrid(
+    drawTiles(
       p5 as P5CanvasInstance,
       p5.width,
       p5.height,
