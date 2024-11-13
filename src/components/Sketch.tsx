@@ -145,11 +145,11 @@ export const sketch: Sketch<MySketchProps> = (p5) => {
   };
 
   p5.windowResized = () => {
-    const { height, width } = computeCanvasDimensions(
+    const { width, height } = computeCanvasDimensions(
       p5.windowWidth,
       p5.windowHeight
     );
-    p5.resizeCanvas(height, width);
+    p5.resizeCanvas(width, height);
   };
 
   p5.draw = () => {
