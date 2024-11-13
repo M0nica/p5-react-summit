@@ -1,18 +1,12 @@
 import { type P5CanvasInstance, type Sketch } from '@p5-wrapper/react';
-import { lightBg } from './demo';
+import { lightBg } from './utils';
 import { type Pattern, type MySketchProps } from './types';
 import { defaultInputValues } from './demo';
+import { convertStringToSeedNumber, computeCanvasDimensions } from './utils';
 
 let originalSize = 35;
 const weight = 8;
 let timesInput = 1;
-
-function convertStringToSeedNumber(str: string) {
-  return str
-    .split('')
-    .map((char) => char.charCodeAt(0))
-    .reduce((acc, val) => acc + val, 0);
-}
 
 function drawRectangle(
   p5: P5CanvasInstance<MySketchProps>,
@@ -135,22 +129,27 @@ export const sketch: Sketch<MySketchProps> = (p5) => {
 
     if (inputValues.isSavingImage) {
       p5.saveCanvas('myCanvas', 'jpg');
-      inputValues?.setIsSavingImage && inputValues.setIsSavingImage();
     }
 
     p5.redraw();
   };
 
-  const computeWidth = (width: number) =>
-    width > 600 ? width * 0.5 : width * 0.9;
   p5.setup = () => {
-    p5.createCanvas(computeWidth(p5.windowWidth), p5.windowHeight * 0.75);
+    const { height, width } = computeCanvasDimensions(
+      p5.windowWidth,
+      p5.windowHeight
+    );
+    p5.createCanvas(width, height);
     p5.imageMode(p5.CENTER);
     p5.textFont('Pixelify Sans Variable');
   };
 
   p5.windowResized = () => {
-    p5.resizeCanvas(computeWidth(p5.windowWidth), p5.windowHeight * 0.75);
+    const { height, width } = computeCanvasDimensions(
+      p5.windowWidth,
+      p5.windowHeight
+    );
+    p5.resizeCanvas(height, width);
   };
 
   p5.draw = () => {

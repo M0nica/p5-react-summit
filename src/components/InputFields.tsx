@@ -1,16 +1,27 @@
 import Styles from './demo.module.css';
 import { type UserInputValues, type Pattern, type Action } from './types';
-import { generateColors } from './demo';
+import { generateColors } from './utils';
 
 export default function InputFields({
   inputValues,
   dispatch,
-  setIsSavingImage,
 }: {
   inputValues: UserInputValues;
   dispatch: (arg: Action) => void;
-  setIsSavingImage: () => void;
 }) {
+  const setIsSavingImage = () => {
+    dispatch({
+      type: 'isSavingImage',
+      value: true,
+    });
+    setTimeout(() => {
+      dispatch({
+        type: 'isSavingImage',
+        value: false,
+      });
+    }, 1000);
+  };
+
   const handleColorChange = (e: {
     target: { name: string; value: React.SetStateAction<string> };
   }) => {
@@ -69,8 +80,15 @@ export default function InputFields({
     });
   };
 
-  const { colors, patternMode, showGrid, size, artMode, showBanner } =
-    inputValues;
+  const {
+    colors,
+    patternMode,
+    showGrid,
+    size,
+    artMode,
+    showBanner,
+    isSavingImage,
+  } = inputValues;
 
   const labels = {
     bgColor: 'Background',
@@ -198,7 +216,11 @@ export default function InputFields({
           />
           <label htmlFor='grid'>Show Banner</label>
         </div>
-        <button className={Styles.buttonCss} onClick={() => setIsSavingImage()}>
+        <button
+          className={Styles.buttonCss}
+          disabled={isSavingImage}
+          onClick={() => setIsSavingImage()}
+        >
           Save{' '}
           <span role='img' aria-label='canvas'>
             🖼️

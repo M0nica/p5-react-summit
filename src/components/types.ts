@@ -12,7 +12,6 @@ export type UserInputValues = {
   size: number;
   patternMode: Pattern;
   isSavingImage: boolean;
-  setIsSavingImage: () => void;
   showGrid: boolean;
   showBanner: boolean;
   artMode: 'rounded' | 'squared';
