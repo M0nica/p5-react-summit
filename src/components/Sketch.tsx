@@ -21,7 +21,7 @@ function drawRectangle(
   size: number
 ) {
   const { fromColor, toColor, bgColor } = colors;
-  p5.textSize(size * 0.5);
+  p5.textSize(width > 750 ? size * 0.5 : size * 0.45);
 
   // draw a rectangle at top of canvas
   p5.noStroke();
