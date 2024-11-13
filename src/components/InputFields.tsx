@@ -112,6 +112,7 @@ export default function InputFields({
             onChange={handleNameChange}
             placeholder={showBanner ? 'Enter  your name' : 'Enter a seed value'}
             className={Styles.inputCss}
+            maxLength={14}
           />
         </div>
         {(['bgColor', 'fromColor', 'toColor'] as const).map((color) => {

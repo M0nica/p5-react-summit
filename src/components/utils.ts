@@ -7,7 +7,7 @@ export function convertStringToSeedNumber(str: string) {
 
 export function computeCanvasDimensions(width: number, height: number) {
   return {
-    width: width > 600 ? width * 0.5 : width * 0.9,
+    width: width > 750 ? width * 0.5 : width * 0.9,
     height: height * 0.75,
   };
 }

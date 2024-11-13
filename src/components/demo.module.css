@@ -11,7 +11,7 @@ label {
   flex-direction: row-reverse;
   gap: 1em;
   justify-content: center;
-  @media (max-width: 600px) {
+  @media (max-width: 750px) {
     flex-direction: column;
   }
 }
