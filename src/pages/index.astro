@@ -18,21 +18,24 @@ import Demo from "../components/demo.tsx";
 		<ul role="list" class="link-card-grid">
 			<Card
 				href="https://github.com/P5-wrapper/react"
-				title="P5-wrapper/react Documentation"
-				body="Learn how P5-wrapper/react works and how to use it."
+				title="P5-wrapper/react GitHub"
+				body="A wrapper component that allows you to utilise P5 sketches within React apps."
 			/>
+			
 			<Card
-				href="https://p5js.org/reference/"
-				title="P5.js Documentation"
-				body="Explore the P5.js reference to learn more about fundamentals  and more advanced features."
+				href="https://github.com/processing/p5.js"
+				title="processing/p5.js GitHub" 
+				body="p5.js is a client-side JS platform that empowers artists, designers, students, and anyone to learn to code and express themselves creatively on the web. It is based on the core principles of Processing."
 			/>
+			
 			
 		</ul>
 
-			<!-- <p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p> -->
+		<p></p>
+			 <p class="instructions">
+			<a href="https://github.com/M0nica/p5-react-summit/tree/main" target="_blank" rel="noopener" class="link"> View on GitHub</a>
+			
+		</p> 
 	</main>
 </Layout>
 
@@ -46,6 +49,8 @@ import Demo from "../components/demo.tsx";
 		font-size: 20px;
 		line-height: 1.6;
 	}
+   
+	
 	.astro-a {
 		position: absolute;
 		top: -32px;
@@ -54,6 +59,7 @@ import Demo from "../components/demo.tsx";
 		width: 220px;
 		height: auto;
 		z-index: -1;
+		
 	}
 	h1 {
 		font-size: 4rem;
@@ -62,6 +68,7 @@ import Demo from "../components/demo.tsx";
 		text-align: center;
 		margin-bottom: 1em;
 	}
+	
 	.text-gradient {
 		background-image: var(--accent-gradient);
 		-webkit-background-clip: text;
@@ -70,6 +77,7 @@ import Demo from "../components/demo.tsx";
 		background-position: 0%;
 	}
 	.instructions {
+		text-align: center;
 		margin-bottom: 2rem;
 		border: 1px solid rgba(var(--accent-light), 25%);
 		background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
@@ -84,9 +92,20 @@ import Demo from "../components/demo.tsx";
 		border-radius: 4px;
 		padding: 0.3em 0.4em;
 	}
-	.instructions strong {
+	.instructions strong, .instructions a {
 		color: rgb(var(--accent-light));
+		font-weight: bold;
 	}
+
+	.instructions a {
+		font-size: 1.1em;
+  		text-decoration: #9854ed wavy underline;
+  		-webkit-text-decoration: #9854ed wavy underline;
+	}
+	.instructions a:hover, .instructions .a:focus, .instructions a:active{
+		color: #9854ed;
+	}
+
 	.link-card-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
