@@ -1,11 +1,11 @@
-import Styles from './demo.module.css';
+import Styles from './InputFields.module.css';
 import {
   type UserInputValues,
   type Pattern,
   type Action,
   type Shape,
-} from './types';
-import { generateColors } from './utils';
+} from '../types';
+import { generateColors } from '../utils';
 
 export default function InputFields({
   inputValues,
@@ -78,11 +78,22 @@ export default function InputFields({
     });
   };
 
+  const handleIsAnimated = () => {
+    dispatch({
+      type: 'isAnimated',
+      value: !isAnimated,
+    });
+  };
+
   const handleShowBanner = () => {
     dispatch({
       type: 'showBanner',
       value: !showBanner,
     });
+  };
+
+  const getZoomLevel = (size: number) => {
+    return `${Number.parseFloat((size / 45).toString()).toFixed(2)}x`;
   };
 
   const {
@@ -92,6 +103,7 @@ export default function InputFields({
     size,
     artMode,
     showBanner,
+    isAnimated,
     isSavingImage,
   } = inputValues;
 
@@ -105,12 +117,12 @@ export default function InputFields({
     <>
       <div className={Styles.controlPanelCss}>
         <div className={Styles.rowCss}>
-          <label htmlFor='name'>{showBanner ? 'Name' : 'Seed'}</label>{' '}
+          <label htmlFor='name'>Name</label>
           <input
             type='text'
             name='name'
             onChange={handleNameChange}
-            placeholder={showBanner ? 'Enter  your name' : 'Enter a seed value'}
+            placeholder={'Enter  your name'}
             className={Styles.inputCss}
             maxLength={14}
           />
@@ -118,7 +130,7 @@ export default function InputFields({
         <h2 className={Styles.sectionCss}>Colors</h2>
         {(['bgColor', 'fromColor', 'toColor'] as const).map((color) => {
           return (
-            <div className={Styles.rowCss} key={color}>
+            <div className={Styles.colorRowCss} key={color}>
               <label htmlFor={color}>{labels[color]}</label>
               <input
                 type='color'
@@ -187,12 +199,12 @@ export default function InputFields({
             id='sz'
             name='size'
             min='25'
-            max='75'
+            max='100'
             value={size}
             step='1'
             onChange={handleSliderChange}
           />
-          <label htmlFor='sz'>Size</label>
+          <label htmlFor='sz'>Size</label> {getZoomLevel(size)}
         </div>
         <div>
           <input
@@ -202,17 +214,27 @@ export default function InputFields({
             checked={showGridLines}
             onChange={handleShowGridLines}
           />
-          <label htmlFor='grid'>Show Grid Lines</label>
+          <label htmlFor='grid'>Show Grid</label>
         </div>
         <div>
           <input
             type='checkbox'
-            id='grid'
-            name='grid'
+            id='animation'
+            name='animation'
+            checked={isAnimated}
+            onChange={handleIsAnimated}
+          />
+          <label htmlFor='animation'>Animate</label>
+        </div>
+        <div>
+          <input
+            type='checkbox'
+            id='banner'
+            name='banner'
             checked={showBanner}
             onChange={handleShowBanner}
           />
-          <label htmlFor='grid'>Show Banner</label>
+          <label htmlFor='banner'>Show Banner</label>
         </div>
         <button
           className={Styles.buttonCss}

@@ -12,6 +12,7 @@ export type UserInputValues = {
   size: number;
   patternMode: Pattern;
   isSavingImage: boolean;
+  isAnimated: boolean;
   showGridLines: boolean;
   showBanner: boolean;
   artMode: Shape;
@@ -28,6 +29,7 @@ export interface Action {
     | 'showGridLines'
     | 'showBanner'
     | 'artMode'
-    | 'isSavingImage';
+    | 'isSavingImage'
+    | 'isAnimated';
   value: boolean | string | number | Colors | Pattern | Shape;
 }
