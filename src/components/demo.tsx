@@ -4,12 +4,8 @@ import { ReactP5Wrapper } from '@p5-wrapper/react';
 import { sketch } from './Sketch';
 import Styles from './demo.module.css';
 
-import {
-  type MySketchProps,
-  type UserInputValues,
-  type Action,
-} from '../types';
-import { generateColors } from '../utils';
+import { type MySketchProps, type UserInputValues, type Action } from './types';
+import { generateColors } from './utils';
 
 export const defaultInputValues = {
   name: '',

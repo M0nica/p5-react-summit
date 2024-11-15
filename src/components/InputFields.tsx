@@ -4,8 +4,8 @@ import {
   type Pattern,
   type Action,
   type Shape,
-} from '../types';
-import { generateColors } from '../utils';
+} from './types';
+import { generateColors } from './utils';
 
 export default function InputFields({
   inputValues,
