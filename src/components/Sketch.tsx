@@ -5,7 +5,7 @@ import {
   type Shape,
   type UserInputValues,
 } from './types.ts';
-import { defaultInputValues } from './Demo.tsx';
+import { defaultInputValues } from './Demo';
 import { convertStringToSeedNumber, computeCanvasDimensions } from './utils.ts';
 
 let ORIGINAL_TILE_SIZE = 100;
