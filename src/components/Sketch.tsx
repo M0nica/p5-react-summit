@@ -1,7 +1,7 @@
 import { type P5CanvasInstance, type Sketch } from '@p5-wrapper/react';
 import { lightBg } from '../utils';
 import { type MySketchProps, type Shape, type UserInputValues } from '../types';
-import { defaultInputValues } from './Demo';
+import { defaultInputValues } from './Demo.tsx';
 import { convertStringToSeedNumber, computeCanvasDimensions } from '../utils';
 
 let ORIGINAL_TILE_SIZE = 100;
