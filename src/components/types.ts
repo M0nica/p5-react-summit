@@ -2,7 +2,7 @@ import { type P5CanvasInstance, type SketchProps } from '@p5-wrapper/react';
 
 export type Pattern = 'gradient' | 'random';
 
-export type Shape = 'rounded' | 'squared';
+export type Shape = 'round' | 'square';
 
 export type Colors = { fromColor: string; toColor: string; bgColor: string };
 

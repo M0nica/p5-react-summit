@@ -15,7 +15,7 @@ export const defaultInputValues = {
   isSavingImage: false,
   showGridLines: false,
   showBanner: true,
-  artMode: 'rounded',
+  artMode: 'round',
 } as MySketchProps;
 
 function reducer(state: UserInputValues, action: Action): UserInputValues {

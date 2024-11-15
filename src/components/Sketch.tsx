@@ -11,7 +11,6 @@ import { convertStringToSeedNumber, computeCanvasDimensions } from './utils';
 
 let originalSize = 35;
 const weight = 8;
-let timesInput = 1;
 
 function drawRectangle(
   p5: P5CanvasInstance<MySketchProps>,
@@ -81,13 +80,11 @@ function drawTiles(
       var angle = (p5.TWO_PI * p5.int(p5.random(1, 5))) / 4;
       p5.rotate(angle);
       p5.tint(
-        p5.random() <= p5.map(timesInput, 1, 4, 0, 0.65)
-          ? from
-          : p5.lerpColor(
-              from,
-              to,
-              patternMode === 'gradient' ? j / height : p5.random(1)
-            )
+        p5.lerpColor(
+          from,
+          to,
+          patternMode === 'gradient' ? j / height : p5.random(1)
+        )
       );
       p5.scale(size / originalSize);
       p5.image(tile, 0, 0);
@@ -116,7 +113,7 @@ function generateTile(
 
   pg.strokeWeight(weight);
   pg.strokeCap(p5.ROUND);
-  if (artMode == 'rounded') {
+  if (artMode == 'round') {
     pg.noFill();
     pg.stroke('255');
   } else {

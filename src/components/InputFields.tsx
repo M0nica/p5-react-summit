@@ -143,56 +143,40 @@ export default function InputFields({
         <fieldset>
           <legend>🌈 Color Distribution</legend>
 
-          <div>
-            <input
-              type='radio'
-              id='gradientColor'
-              name='gradient'
-              value='gradient'
-              checked={patternMode === 'gradient'}
-              onChange={handleColorModeChange}
-            />
-            <label htmlFor='gradientColor'>Gradient</label>
-          </div>
-
-          <div>
-            <input
-              type='radio'
-              id='randomColor'
-              name='random'
-              value='random'
-              checked={patternMode === 'random'}
-              onChange={handleColorModeChange}
-            />
-            <label htmlFor='randomColor'>Random</label>
-          </div>
+          {(['gradient', 'random'] as const).map((mode) => {
+            return (
+              <div key={mode} className={Styles.radioOptionCss}>
+                <input
+                  type='radio'
+                  id={mode}
+                  name='pattern'
+                  value={mode}
+                  checked={patternMode === mode}
+                  onChange={handleColorModeChange}
+                />
+                <label htmlFor={mode}>{mode}</label>
+              </div>
+            );
+          })}
         </fieldset>
         <fieldset>
           <legend>🎨 Art Mode</legend>
 
-          <div>
-            <input
-              type='radio'
-              id='rounded'
-              name='rounded'
-              value='rounded'
-              checked={artMode === 'rounded'}
-              onChange={handleArtModeChange}
-            />
-            <label htmlFor='rounded'>Round</label>
-          </div>
-
-          <div>
-            <input
-              type='radio'
-              id='squared'
-              name='squared'
-              value='squared'
-              checked={artMode === 'squared'}
-              onChange={handleArtModeChange}
-            />
-            <label htmlFor='squared'>Square</label>
-          </div>
+          {(['round', 'square'] as const).map((mode) => {
+            return (
+              <div key={mode} className={Styles.radioOptionCss}>
+                <input
+                  type='radio'
+                  id={mode}
+                  name='artMode'
+                  value={mode}
+                  checked={artMode === mode}
+                  onChange={handleArtModeChange}
+                />
+                <label htmlFor={mode}>{mode}</label>
+              </div>
+            );
+          })}
         </fieldset>
 
         <h2 className={Styles.sectionCss}>Additional Settings</h2>

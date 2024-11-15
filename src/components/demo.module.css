@@ -2,6 +2,10 @@
   accent-color: #9854ed;
 }
 
+.radioOptionCss {
+  text-transform: capitalize;
+}
+
 .sectionCss {
   font-size: 1.1em;
   text-decoration: #9854ed wavy underline;
