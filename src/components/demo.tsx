@@ -2,7 +2,7 @@ import * as React from 'react';
 import InputFields from './InputFields';
 import { ReactP5Wrapper } from '@p5-wrapper/react';
 import { sketch } from './Sketch';
-import Styles from './demo.module.css';
+import Styles from './Demo.module.css';
 
 import { type MySketchProps, type UserInputValues, type Action } from './types';
 import { generateColors } from './utils';
