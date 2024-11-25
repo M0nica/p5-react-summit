@@ -155,9 +155,10 @@ export const sketch: Sketch<MySketchProps> = (p5) => {
   p5.draw = () => {
     const { colors, isAnimated, name, showBanner } = inputValues;
     const { bgColor } = colors;
-
-    p5.background(bgColor);
+    
     p5.clear();
+    p5.background(bgColor);
+    
 
     if (!isAnimated) {
       p5.randomSeed(convertStringToSeedNumber(name));
